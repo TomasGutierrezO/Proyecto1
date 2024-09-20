@@ -1,0 +1,30 @@
+{
+    "peer2": {
+        "files": [
+            "archivo1.txt",
+            "archivo2.txt",
+            "Plataformas.exe"
+        ]
+    },
+    "peer1": {
+        "files": [
+            "archivo1.txt",
+            "archivo2.txt",
+            "archivo3.rar",
+            "Windows.iso",
+            "Alvaro.jpg",
+            "Prueba25.txt"
+        ]
+    },
+    "peer3": {
+        "files": [
+            "prueba1.png"
+        ]
+    },
+    "peer4": {
+        "files": [
+            "prueba2.png",
+            "hola.txt"
+        ]
+    }
+}
