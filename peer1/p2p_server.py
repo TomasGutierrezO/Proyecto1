@@ -1,4 +1,5 @@
 import grpc
+from concurrent import futures
 import json
 import sys
 import os
@@ -6,8 +7,7 @@ import os
 # Añadir el directorio raíz del proyecto al sys.path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from proto import p2p_pb2
-from proto import p2p_pb2_grpc
+from proto import p2p_pb2, p2p_pb2_grpc
 
 class P2PServerServicer(p2p_pb2_grpc.P2PServiceServicer):
 
