@@ -42,7 +42,7 @@ class P2PServiceStub(object):
         self.DownloadFile = channel.unary_unary(
                 '/P2PService/DownloadFile',
                 request_serializer=p2p__pb2.FileRequest.SerializeToString,
-                response_deserializer=p2p__pb2.FileResponse.FromString,
+                response_deserializer=p2p__pb2.FileListResponse.FromString,
                 _registered_method=True)
 
 
@@ -73,7 +73,7 @@ def add_P2PServiceServicer_to_server(servicer, server):
             'DownloadFile': grpc.unary_unary_rpc_method_handler(
                     servicer.DownloadFile,
                     request_deserializer=p2p__pb2.FileRequest.FromString,
-                    response_serializer=p2p__pb2.FileResponse.SerializeToString,
+                    response_serializer=p2p__pb2.FileListResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -129,7 +129,7 @@ class P2PService(object):
             target,
             '/P2PService/DownloadFile',
             p2p__pb2.FileRequest.SerializeToString,
-            p2p__pb2.FileResponse.FromString,
+            p2p__pb2.FileListResponse.FromString,
             options,
             channel_credentials,
             insecure,

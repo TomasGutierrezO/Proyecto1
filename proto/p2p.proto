@@ -3,7 +3,7 @@ syntax = "proto3";
 service P2PService {
     // Método para obtener la lista de archivos disponibles en un peer
     rpc GetFiles(FileRequest) returns (FileListResponse) {}
-    rpc DownloadFile(FileRequest) returns (FileResponse) {}
+    rpc DownloadFile(FileRequest) returns (FileListResponse) {}
 }
 
 message FileRequest {

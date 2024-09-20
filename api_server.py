@@ -110,5 +110,36 @@ def search_file():
 
     return jsonify({'peers': peers})
 
+
+@app.route('/download', methods=['POST'])
+def download_file():
+    username = request.json.get('username')
+    password = request.json.get('password')
+    file_name = request.json.get('file_name')
+
+    if not all([username, password, file_name]):
+        return jsonify({"message": "Faltan campos obligatorios"}), 400
+
+    if auth_service.authenticate(username, password):
+        with open('files_peer.json') as f:
+            files_peer_data = json.load(f)
+
+        for peer_id, peer_info in files_peer_data.items():
+            if file_name in peer_info['files']:
+                # Aquí obtenemos la configuración del peer
+                with open(f"{peer_id}/peer_config.json") as peer_f:
+                    peer_config = json.load(peer_f)
+
+                return jsonify({
+                    "peer_id": peer_id,
+                    "ip": peer_config['ip'],
+                    "port": peer_config['port'],
+                    "message": "Archivo encontrado"
+                }), 200
+
+        return jsonify({"message": "Archivo no encontrado en ningún peer"}), 404
+    else:
+        return jsonify({"message": "Credenciales inválidas"}), 400
+
 if __name__ == '__main__':
     app.run(debug=True)

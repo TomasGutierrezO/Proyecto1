@@ -26,7 +26,7 @@ class P2PServerServicer(p2p_pb2_grpc.P2PServiceServicer):
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     p2p_pb2_grpc.add_P2PServiceServicer_to_server(P2PServerServicer(), server)
-    server.add_insecure_port('[::]:50002')  # Replace with desired port number
+    server.add_insecure_port('[::]:50003')  # Replace with desired port number
     server.start()
     server.wait_for_termination()
 

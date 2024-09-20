@@ -23,6 +23,16 @@ class P2PServerServicer(p2p_pb2_grpc.P2PServiceServicer):
         else:
             return p2p_pb2.FileListResponse(files=[], message="Archivo no encontrado")
 
+    def GetFiles(self, request, context):
+            with open(f"{request.peer_id}/peer_config.json") as f:
+                data = json.load(f)
+                peer_files = data['files']
+
+            if request.file_name in peer_files:
+                return p2p_pb2.FileListResponse(files=[request.file_name], message="Archivo encontrado")
+            else:
+                return p2p_pb2.FileListResponse(files=[], message="Archivo no encontrado")
+
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     p2p_pb2_grpc.add_P2PServiceServicer_to_server(P2PServerServicer(), server)

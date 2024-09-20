@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\tp2p.proto\"1\n\x0b\x46ileRequest\x12\x0f\n\x07peer_id\x18\x01 \x01(\t\x12\x11\n\tfile_name\x18\x02 \x01(\t\"2\n\x10\x46ileListResponse\x12\r\n\x05\x66iles\x18\x01 \x03(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\"2\n\x0c\x46ileResponse\x12\x11\n\tfile_name\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t2j\n\nP2PService\x12-\n\x08GetFiles\x12\x0c.FileRequest\x1a\x11.FileListResponse\"\x00\x12-\n\x0c\x44ownloadFile\x12\x0c.FileRequest\x1a\r.FileResponse\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\tp2p.proto\"1\n\x0b\x46ileRequest\x12\x0f\n\x07peer_id\x18\x01 \x01(\t\x12\x11\n\tfile_name\x18\x02 \x01(\t\"2\n\x10\x46ileListResponse\x12\r\n\x05\x66iles\x18\x01 \x03(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\"2\n\x0c\x46ileResponse\x12\x11\n\tfile_name\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t2n\n\nP2PService\x12-\n\x08GetFiles\x12\x0c.FileRequest\x1a\x11.FileListResponse\"\x00\x12\x31\n\x0c\x44ownloadFile\x12\x0c.FileRequest\x1a\x11.FileListResponse\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -38,5 +38,5 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_FILERESPONSE']._serialized_start=116
   _globals['_FILERESPONSE']._serialized_end=166
   _globals['_P2PSERVICE']._serialized_start=168
-  _globals['_P2PSERVICE']._serialized_end=274
+  _globals['_P2PSERVICE']._serialized_end=278
 # @@protoc_insertion_point(module_scope)
