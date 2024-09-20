@@ -14,12 +14,15 @@
             "Windows.iso",
             "Alvaro.jpg",
             "Prueba25.txt",
-            "hola.txt"
+            "hola.txt",
+            "prueba1.png",
+            "Plataformas.exe"
         ]
     },
     "peer3": {
         "files": [
-            "prueba1.png"
+            "prueba1.png",
+            "Windows.iso"
         ]
     },
     "peer4": {

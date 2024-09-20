@@ -1,13 +1,13 @@
 import json
 import sys
 import os
-import grpc  # Asegúrate de que gRPC esté instalado
+import grpc 
 import requests
 
 # Añadir el directorio raíz del proyecto al sys.path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from proto import p2p_pb2, p2p_pb2_grpc  # Asegúrate de que esto coincida con tu estructura de directorios
+from proto import p2p_pb2, p2p_pb2_grpc 
 
 class P2PClient:
     def __init__(self):
@@ -22,7 +22,7 @@ class P2PClient:
         with open("../auth/users.json") as g:
             data2 = json.load(g)
             self.password = data2[self.peer_id]
-        self.available_peers = []  # Almacenar peers que tienen el archivo buscado
+        self.available_peers = []
 
     def login(self):
         username = input("Ingrese su nombre de usuario (peer_id): ")
@@ -53,7 +53,7 @@ class P2PClient:
         response = requests.get(self.api_url + "search", params={"file_name": file_name})
         if response.status_code == 200:
             peers = response.json()["peers"]
-            self.available_peers = []  # Reiniciar la lista de peers disponibles para este archivo
+            self.available_peers = []
             for peer in peers:
                 channel = grpc.insecure_channel(f"{peer['ip']}:{peer['port']}")
                 stub = p2p_pb2_grpc.P2PServiceStub(channel)
@@ -63,7 +63,7 @@ class P2PClient:
                 if file_name in file_response.files:
                     print(f"Peer {peer['peer_id']} tiene el archivo '{file_name}'.")
                     print(f"IP: {peer['ip']}, Puerto: {peer['port']}")
-                    self.available_peers.append(peer)  # Almacenar peer que tiene el archivo
+                    self.available_peers.append(peer)
             if not self.available_peers:
                 print("No se encontraron peers con ese archivo.")
         else:
@@ -95,15 +95,12 @@ class P2PClient:
         
         request = p2p_pb2.FileRequest(peer_id=self.peer_id, file_name=file_name)
         
-        # Solicitar el archivo
         download_response = stub.DownloadFile(request)
         
-        # Si el archivo está disponible, agregarlo al arreglo local
         if download_response.file_name:
             print(f"Archivo '{download_response.file_name}' recibido de Peer {peer['peer_id']}.")
             self.files.append(download_response.file_name)
             print(f"El archivo '{download_response.file_name}' ha sido añadido a tu lista de archivos.")
-            # Guardar el archivo en el archivo peer_config.json
             self.save_files()
         else:
             print(f"El archivo '{file_name}' no está disponible para descargar en este peer.")
@@ -139,9 +136,9 @@ def main():
             resultado = peer.index()
             print(resultado)
         elif opcion == "4":
-            peer.search()  # Buscar archivo en la red de peers
+            peer.search()
         elif opcion == "5":
-            peer.download()  # Descargar archivo de los peers encontrados
+            peer.download()
         elif opcion == "6":
             print("Saliendo del programa...")
             break

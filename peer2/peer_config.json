@@ -2,5 +2,9 @@
     "peer_id": "peer2",
     "ip": "127.0.0.2",
     "port": 50002,
-    "files": ["archivo1.txt", "archivo2.txt", "Plataformas.exe"]
+    "files": [
+        "archivo1.txt",
+        "archivo2.txt",
+        "Plataformas.exe"
+    ]
 }
