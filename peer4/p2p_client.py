@@ -1,6 +1,13 @@
-import requests
 import json
-import grpc
+import sys
+import os
+import grpc  # Asegúrate de que gRPC esté instalado
+import requests
+
+# Añadir el directorio raíz del proyecto al sys.path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from proto import p2p_pb2, p2p_pb2_grpc  # Asegúrate de que esto coincida con tu estructura de directorios
 
 class P2PClient:
     def __init__(self):
@@ -46,10 +53,13 @@ class P2PClient:
             peers = response.json()["peers"]
             for peer in peers:
                 channel = grpc.insecure_channel(f"{peer['ip']}:{peer['port']}")
-                stub = grpc.client(channel)
-                request = {"file_name": file_name}
-                response = stub.GetFiles(request)
-                print(f"Peer {peer['peer_id']} has files: {response['files']}")
+                stub = p2p_pb2_grpc.P2PServiceStub(channel)
+                request = p2p_pb2.FileRequest(peer_id=self.peer_id, file_name=file_name)
+                file_response = stub.GetFiles(request)
+
+                # Imprimir peer, IP y puerto
+                print(f"Peer {peer['peer_id']} tiene archivos: {file_response.files}")
+                print(f"IP: {peer['ip']}, Puerto: {peer['port']}")
         else:
             print("No se encontraron peers con ese archivo")
 
@@ -75,8 +85,7 @@ def main():
             resultado = peer.index()
             print(resultado)
         elif opcion == "4":
-            resultado = peer.search()
-            print(resultado)
+            peer.search()  # No es necesario almacenar el resultado aquí
         elif opcion == "5":
             print("Saliendo del programa...")
             break

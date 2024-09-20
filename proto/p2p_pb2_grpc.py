@@ -39,6 +39,11 @@ class P2PServiceStub(object):
                 request_serializer=p2p__pb2.FileRequest.SerializeToString,
                 response_deserializer=p2p__pb2.FileListResponse.FromString,
                 _registered_method=True)
+        self.DownloadFile = channel.unary_unary(
+                '/P2PService/DownloadFile',
+                request_serializer=p2p__pb2.FileRequest.SerializeToString,
+                response_deserializer=p2p__pb2.FileResponse.FromString,
+                _registered_method=True)
 
 
 class P2PServiceServicer(object):
@@ -51,6 +56,12 @@ class P2PServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def DownloadFile(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_P2PServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -58,6 +69,11 @@ def add_P2PServiceServicer_to_server(servicer, server):
                     servicer.GetFiles,
                     request_deserializer=p2p__pb2.FileRequest.FromString,
                     response_serializer=p2p__pb2.FileListResponse.SerializeToString,
+            ),
+            'DownloadFile': grpc.unary_unary_rpc_method_handler(
+                    servicer.DownloadFile,
+                    request_deserializer=p2p__pb2.FileRequest.FromString,
+                    response_serializer=p2p__pb2.FileResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -87,6 +103,33 @@ class P2PService(object):
             '/P2PService/GetFiles',
             p2p__pb2.FileRequest.SerializeToString,
             p2p__pb2.FileListResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DownloadFile(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/P2PService/DownloadFile',
+            p2p__pb2.FileRequest.SerializeToString,
+            p2p__pb2.FileResponse.FromString,
             options,
             channel_credentials,
             insecure,
