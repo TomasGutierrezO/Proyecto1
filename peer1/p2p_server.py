@@ -12,31 +12,33 @@ from proto import p2p_pb2, p2p_pb2_grpc
 class P2PServerServicer(p2p_pb2_grpc.P2PServiceServicer):
 
     def GetFiles(self, request, context):
-        # Load peer1 information (assuming data is in peer_config.json)
+        # Cargar información de peer1 desde peer_config.json
         with open("peer_config.json") as f:
             data = json.load(f)
             peer_files = data['files']
 
-        # Check if requested file exists in peer1's files
+        # Comprobar si el archivo solicitado existe en los archivos del peer
         if request.file_name in peer_files:
             return p2p_pb2.FileListResponse(files=[request.file_name], message="Archivo encontrado")
         else:
             return p2p_pb2.FileListResponse(files=[], message="Archivo no encontrado")
 
-    def GetFiles(self, request, context):
-            with open(f"{request.peer_id}/peer_config.json") as f:
-                data = json.load(f)
-                peer_files = data['files']
+    def DownloadFile(self, request, context):
+        """Maneja la solicitud de descarga de un archivo."""
+        with open("peer_config.json") as f:
+            data = json.load(f)
+            peer_files = data['files']
 
-            if request.file_name in peer_files:
-                return p2p_pb2.FileListResponse(files=[request.file_name], message="Archivo encontrado")
-            else:
-                return p2p_pb2.FileListResponse(files=[], message="Archivo no encontrado")
-
+        # Verificar si el archivo existe y devolverlo
+        if request.file_name in peer_files:
+            return p2p_pb2.FileResponse(file_name=request.file_name)
+        else:
+            return p2p_pb2.FileResponse(file_name="")
+        
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     p2p_pb2_grpc.add_P2PServiceServicer_to_server(P2PServerServicer(), server)
-    server.add_insecure_port('[::]:50001')  # Replace with desired port number
+    server.add_insecure_port('[::]:50001')  # Reemplazar con el número de puerto deseado
     server.start()
     server.wait_for_termination()
 

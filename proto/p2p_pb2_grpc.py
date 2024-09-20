@@ -42,7 +42,7 @@ class P2PServiceStub(object):
         self.DownloadFile = channel.unary_unary(
                 '/P2PService/DownloadFile',
                 request_serializer=p2p__pb2.FileRequest.SerializeToString,
-                response_deserializer=p2p__pb2.FileListResponse.FromString,
+                response_deserializer=p2p__pb2.FileResponse.FromString,
                 _registered_method=True)
 
 
@@ -50,8 +50,7 @@ class P2PServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def GetFiles(self, request, context):
-        """Método para obtener la lista de archivos disponibles en un peer
-        """
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -73,7 +72,7 @@ def add_P2PServiceServicer_to_server(servicer, server):
             'DownloadFile': grpc.unary_unary_rpc_method_handler(
                     servicer.DownloadFile,
                     request_deserializer=p2p__pb2.FileRequest.FromString,
-                    response_serializer=p2p__pb2.FileListResponse.SerializeToString,
+                    response_serializer=p2p__pb2.FileResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -129,7 +128,7 @@ class P2PService(object):
             target,
             '/P2PService/DownloadFile',
             p2p__pb2.FileRequest.SerializeToString,
-            p2p__pb2.FileListResponse.FromString,
+            p2p__pb2.FileResponse.FromString,
             options,
             channel_credentials,
             insecure,
