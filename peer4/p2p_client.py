@@ -19,10 +19,6 @@ class P2PClient:
             self.files = data["files"]
             self.api_url = f"http://127.0.0.1:5000/"
         
-        with open("../auth/users.json") as g:
-            data2 = json.load(g)
-            self.password = data2[self.peer_id]
-        self.available_peers = []
 
     def login(self):
         username = input("Ingrese su nombre de usuario (peer_id): ")
