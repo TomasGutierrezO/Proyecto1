@@ -87,13 +87,10 @@ def buscar_peers(file_name):
     peers = []
     for peer_id, peer_info in peer_list.items():
         if file_name in peer_info['files']:
-            peer_config_file = f"{peer_id}/peer_config.json"
-            with open(peer_config_file, 'r') as f:
-                peer_config = json.load(f)
             peers.append({
                 'peer_id': peer_id,
-                'ip': peer_config['ip'],
-                'port': peer_config['port']
+                'ip': peer_info['ip'],
+                'port': peer_info['port']
             })
 
     return peers

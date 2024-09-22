@@ -4,7 +4,9 @@
             "archivo1.txt",
             "archivo2.txt",
             "Plataformas.exe"
-        ]
+        ],
+        "ip": "127.0.0.1",
+        "port": 50002
     },
     "peer1": {
         "files": [
@@ -17,19 +19,25 @@
             "hola.txt",
             "prueba1.png",
             "Plataformas.exe",
-            "ApiRest.py"
-        ]
+            "Windows.iso"
+        ],
+        "ip": "127.0.0.1",
+        "port": 50001
     },
     "peer3": {
         "files": [
             "prueba1.png",
             "Windows.iso"
-        ]
+        ],
+        "ip": "127.0.0.1",
+        "port": 50003
     },
     "peer4": {
         "files": [
             "prueba2.png",
             "hola.txt"
-        ]
+        ],
+        "ip": "127.0.0.1",
+        "port": 50004
     }
 }
