@@ -92,3 +92,98 @@ Para iniciar el cliente P2P:
 - **Eliminar Archivos**: Para eliminar archivos, modifique el array `files` en `peer_config.json`, reinicie el servidor P2P e indexe nuevamente.
 
 ---
+
+# P2P File Sharing System
+
+This project implements a peer-to-peer (P2P) network designed to simulate file exchange between nodes. The architecture employs REST APIs for communication with a central server and gRPC for direct peer-to-peer communication.
+
+## Objective
+
+The system aims to facilitate efficient file sharing among predefined users, providing secure authentication, advanced file search, and download through optimized communication channels.
+
+## Features
+
+- **Functional P2P Network**: Implements a distributed system enabling direct communication between peers.
+- **REST API**: Manages user authentication and file indexing through a central server.
+- **gRPC**: Optimizes file transfer between peers, minimizing latency.
+- **Secure Authentication**: Only predefined users can access the system.
+- **File Transfer Simulation**: File exchange is simulated by transferring file names between peers.
+
+## Main Functionalities
+
+1. **User Login**: Authentication of predefined users via credentials.
+2. **User Logout**: Secure termination of the active user session.
+3. **File Indexing**: Update of the files available for sharing in the network.
+4. **File Search**: Allows users to search for files distributed across the P2P network.
+5. **File Download**: Allows users to download files from other peers connected to the network.
+
+## Functional Requirements
+
+- **User Authentication**: The system must verify credentials against a predefined list of users.
+- **Session Management**: Allows only one active session per user.
+- **File List Maintenance**: Each peer must maintain an updated list of files available for sharing.
+
+## Technical Requirements
+
+- **Programming Language**: Python.
+- **REST Framework**: Flask for central server implementation.
+- **Peer-to-Peer Communication**: gRPC for fast and efficient connections.
+- **Storage**: User and indexed file data are stored in JSON format.
+
+## Non-Functional Requirements
+
+- **Scalability**: The system must handle the addition of new peers without significant performance degradation.
+- **Concurrency**: The system must support multiple simultaneous connections between peers using gRPC.
+- **Efficiency**: Peer-to-peer communications must be optimized to reduce latency in file transfers.
+
+## Installation Guide
+
+### 1. Central Server Setup
+
+1. In a terminal, navigate to the project's main directory.
+2. Run the following command to start the server:
+
+    ```bash
+    python api_server.py
+    ```
+
+3. The server will be available at `http://127.0.0.1:5000`.
+
+### 2. Peer Setup
+
+For each peer, follow these steps:
+
+1. Open a new terminal and navigate to the corresponding peer directory (`/peer_n`, where `n` is the peer number).
+2. Run the P2P server with the following command:
+
+    ```bash
+    python p2p_server.py
+    ```
+
+### 3. P2P Client Setup
+
+To start the P2P client:
+
+1. Open a new terminal and navigate to the peer directory.
+2. Run the client with the following command:
+
+    ```bash
+    python p2p_client.py
+    ```
+
+3. The main menu will be displayed for system interaction.
+
+## Client Usage
+
+1. **Login**: Select option `1. Login` from the main menu, then enter the username and password.
+2. **Index Files**: Select `3. Index Files` to update the list of available files in the network.
+3. **Search Files**: Select `4. Search File` and enter the desired file name.
+4. **Download Files**: After a successful search, select `5. Download File` and choose the peer from which to download.
+5. **Logout**: Select `2. Logout` to securely end the session.
+
+## Shared File Management
+
+- **Add Files**: To add new files, edit the `files` array in the `peer_config.json` file. Restart the P2P server and re-index the files.
+- **Remove Files**: To remove files, modify the `files` array in the `peer_config.json` file, restart the P2P server, and re-index the files.
+
+---
